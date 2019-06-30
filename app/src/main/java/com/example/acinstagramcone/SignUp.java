@@ -30,8 +30,11 @@ public class SignUp extends AppCompatActivity {
         });*/
 
         ParseObject KickBoxer=new ParseObject("KickBoxer");
+        KickBoxer.put("Name","Vinay");
         KickBoxer.put("KickSpeed",100);
         KickBoxer.put("KickPower",200);
+        KickBoxer.put("PunchSpeed",300);
+        KickBoxer.put("PunchPower",400);
         KickBoxer.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
