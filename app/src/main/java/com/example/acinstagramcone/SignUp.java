@@ -24,7 +24,7 @@ import java.util.List;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnSave,btnGetAllKickBoxer;
+    private Button btnSave,btnGetAllKickBoxer,switchToAnotherActivity;
     private TextView txtGetData;
     private String allKickBoxers;
     private EditText edtKickSpeed,edtKickPower,edtName,edtPunchPower,edtPunchSpeed;
@@ -33,6 +33,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        switchToAnotherActivity=findViewById(R.id.switchtoanotheractivity);
+        switchToAnotherActivity.setOnClickListener(this);
 
         btnSave=findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);
@@ -103,11 +106,17 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         }
 
+        // Retrieving data from parse server
+
         else if(view.getId()==btnGetAllKickBoxer.getId()){
 
             allKickBoxers="";
 
             ParseQuery<ParseObject> queryAll=ParseQuery.getQuery("KickBoxer");
+
+            // for retrieving a single object we use saveInBackground and for retrieving more than one object we use findInBackground
+
+           // queryAll.whereGreaterThan("PunchPower",100);
             queryAll.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
@@ -140,6 +149,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             });
 
         }
+        else if(view.getId()==switchToAnotherActivity.getId()){
 
+
+
+        }
     }
 }
