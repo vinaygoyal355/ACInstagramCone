@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -19,10 +20,13 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnSave;
+    private Button btnSave,btnGetAllKickBoxer;
     private TextView txtGetData;
+    private String allKickBoxers;
     private EditText edtKickSpeed,edtKickPower,edtName,edtPunchPower,edtPunchSpeed;
 
     @Override
@@ -32,6 +36,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         btnSave=findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);
+
+        btnGetAllKickBoxer=findViewById(R.id.btnGetAllKickBoxer);
+        btnGetAllKickBoxer.setOnClickListener(this);
 
         edtName=findViewById(R.id.edtName);
         edtKickPower=findViewById(R.id.edtKickPower);
@@ -62,6 +69,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+
+        if(view.getId()==btnSave.getId()){
+
             final ParseObject KickBoxer=new ParseObject("KickBoxer");
 
             String a;
@@ -90,5 +100,46 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     }
                 }
             });
+
+        }
+
+        else if(view.getId()==btnGetAllKickBoxer.getId()){
+
+            allKickBoxers="";
+
+            ParseQuery<ParseObject> queryAll=ParseQuery.getQuery("KickBoxer");
+            queryAll.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+
+                    if(e==null){
+
+                       if(objects.size() > 0){
+
+                           for(ParseObject kickBoxer : objects){
+
+                               allKickBoxers= allKickBoxers+ kickBoxer.get("Name")+ "\n";
+
+                           }
+
+                           FancyToast.makeText(SignUp.this,allKickBoxers,FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+
+
+                       }
+
+                       else{
+
+                           FancyToast.makeText(SignUp.this,"List Objects Are Empty",FancyToast.LENGTH_LONG,FancyToast.WARNING,true).show();
+
+
+                       }
+
+                    }
+
+                }
+            });
+
+        }
+
     }
 }
