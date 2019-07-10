@@ -7,16 +7,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import org.w3c.dom.Text;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnSave;
+    private TextView txtGetData;
     private EditText edtKickSpeed,edtKickPower,edtName,edtPunchPower,edtPunchSpeed;
 
     @Override
@@ -32,6 +38,26 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         edtKickSpeed=findViewById(R.id.edtKickSpeed);
         edtPunchPower=findViewById(R.id.edtPunchPower);
         edtPunchSpeed=findViewById(R.id.edtPunchSpeed);
+
+        txtGetData=findViewById(R.id.getDataFromServer);
+        txtGetData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseQuery<ParseObject> parseQuery=ParseQuery.getQuery("KickBoxer");
+                parseQuery.getInBackground("ZAGwbBz5rC", new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if(object!=null && e==null){
+
+                             txtGetData.setText(object.get("Name").toString()+ "- PunchPower: "+ object.get("PunchPower")
+                                     + "- PunchSpeed: "+ object.get("PunchSpeed") + "- KickPower: "+ object.get("KickPower")
+                                     + "- KickSpeed: "+ object.get("KickSpeed"));
+
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -57,10 +83,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void done(ParseException e) {
                     if(e == null){
-                        FancyToast.makeText(SignUp.this,"Hello World !",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true);
+                        FancyToast.makeText(SignUp.this,KickBoxer.get("Name")+" is saved to server",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                     }
                     else{
-                        Toast.makeText(SignUp.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                        FancyToast.makeText(SignUp.this,e.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
                     }
                 }
             });
