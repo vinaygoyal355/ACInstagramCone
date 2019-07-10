@@ -2,6 +2,7 @@ package com.example.acinstagramcone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -151,7 +152,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         }
         else if(view.getId()==switchToAnotherActivity.getId()){
 
-
+            Intent A=new Intent(SignUp.this,SignupLoginActivity.class);
+            startActivity(A);
 
         }
     }
