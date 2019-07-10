@@ -48,6 +48,8 @@ public class SignupLoginActivity extends AppCompatActivity {
                             FancyToast.makeText(SignupLoginActivity.this,appUser.get("username")+ " is Signed Up Successfully",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             Intent A=new Intent(SignupLoginActivity.this,WelcomeActivity.class);
                             A.putExtra("UserName",SignUpUsername.getText().toString());
+                            SignUpUsername.setText("");
+                            SignUpPassword.setText("");
                             startActivity(A);
                         }
                         else{
@@ -70,6 +72,8 @@ public class SignupLoginActivity extends AppCompatActivity {
                             FancyToast.makeText(SignupLoginActivity.this,user.get("username")+ " is Logged In Successfully",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             Intent A=new Intent(SignupLoginActivity.this,WelcomeActivity.class);
                             A.putExtra("UserName",loginUsername.getText().toString());
+                            loginUsername.setText("");
+                            loginPassword.setText("");
                             startActivity(A);
 
                         }
