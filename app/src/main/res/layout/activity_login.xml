@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/Purple"
     android:layout_height="match_parent"
+    android:background="@color/Purple"
+    android:onClick="rootLayoutIsTappedLogin"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -27,10 +28,10 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
-        android:textSize="20sp"
-        android:textColorHint="@android:color/black"
         android:hint="Enter Email"
         android:inputType="textPersonName"
+        android:textColorHint="@android:color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
