@@ -1,7 +1,5 @@
 package com.example.acinstagramcone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        setTitle("Log In");
 
         edtEmail=findViewById(R.id.edtLoginEmail);
         edtPassword=findViewById(R.id.edtLoginPassword);
@@ -47,10 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnLogin=findViewById(R.id.btnLogIn);
 
-        if(ParseUser.getCurrentUser() != null){
-           // ParseUser.getCurrentUser().logOut();
-            transtiontoSocialMediaActivity();
-        }
+
 
         btnLogin.setOnClickListener(this);
 
@@ -90,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 final ProgressDialog progressDialog=new ProgressDialog(LoginActivity.this);
                 progressDialog.setMessage("Loging In");
+                progressDialog.show();
 
                 ParseUser.logInInBackground(edtEmail.getText().toString(), edtPassword.getText().toString(), new LogInCallback() {
 
