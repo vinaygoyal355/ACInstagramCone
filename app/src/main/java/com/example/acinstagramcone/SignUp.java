@@ -11,13 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -70,9 +65,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         getSupportActionBar().setDisplayOptions(A.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar);
 
-        if(ParseUser.getCurrentUser()!=null) {
-            ParseUser.getCurrentUser().logOut();
-        }
     }
 
     @Override
@@ -83,11 +75,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             if(edtUserName.getText().toString().equals("") || edtPassword.getText().toString() .equals("") || edtEmail.getText().toString().equals("")) {
 
                 FancyToast.makeText(SignUp.this,"UserName, Email and Password are Required", FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
-
             }
 
             else{
-
 
                 ParseUser parseUser = new ParseUser();
                 parseUser.setUsername(edtUserName.getText().toString());
@@ -108,6 +98,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             edtPassword.setText("");
                             edtEmail.setText("");
                             progressDialog.dismiss();
+                            transtiontoSocialMediaActivity();
 
                         } else {
 
@@ -140,6 +131,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void transtiontoSocialMediaActivity(){
+
+        Intent a=new Intent(SignUp.this,SocialMediaActivity.class);
+        startActivity(a);
+
     }
 
 }

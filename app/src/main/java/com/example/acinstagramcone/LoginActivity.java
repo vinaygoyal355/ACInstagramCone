@@ -3,6 +3,7 @@ package com.example.acinstagramcone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,7 +18,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import static java.lang.System.exit;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnLogin,btnCancel;
     private EditText edtEmail,edtPassword;
@@ -30,11 +31,11 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail=findViewById(R.id.edtLoginEmail);
         edtPassword=findViewById(R.id.edtLoginPassword);
 
-       /* edtPassword.setOnKeyListener(new View.OnKeyListener() {
+        edtPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
 
-                if(i==KeyEvent.KEYCODE_ENTER && keyEvent.getAction()==KeyEvent.ACTION_DOWN){
+                if(i==KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
 
                     onClick(btnLogin);
 
@@ -42,52 +43,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 return false;
             }
-        });*/
+        });
 
         btnLogin=findViewById(R.id.btnLogIn);
 
         if(ParseUser.getCurrentUser() != null){
-            ParseUser.getCurrentUser().logOut();
+           // ParseUser.getCurrentUser().logOut();
+            transtiontoSocialMediaActivity();
         }
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(edtEmail.getText().toString().equals("") || edtPassword.getText().toString().equals("")) {
-
-                    FancyToast.makeText(LoginActivity.this,"Email And Password are Required", FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
-
-                }
-                else{
-
-                    final ProgressDialog progressDialog=new ProgressDialog(LoginActivity.this);
-                    progressDialog.setMessage("Loging In");
-
-                    ParseUser.logInInBackground(edtEmail.getText().toString(), edtPassword.getText().toString(), new LogInCallback() {
-
-                        @Override
-                        public void done(ParseUser user, ParseException e) {
-
-                            if (user != null && e == null) {
-
-                                FancyToast.makeText(LoginActivity.this, user.getUsername() + " is Signed Up Successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                                edtEmail.setText("");
-                                edtPassword.setText("");
-                                progressDialog.dismiss();
-
-                            } else {
-
-                                FancyToast.makeText(LoginActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.WARNING, true).show();
-                                progressDialog.dismiss();
-                            }
-
-                        }
-                    });
-
-                }
-            }
-        });
+        btnLogin.setOnClickListener(this);
 
         btnCancel=findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -111,4 +76,52 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+
+        if(view.getId()==btnLogin.getId()){
+
+            if(edtEmail.getText().toString().equals("") || edtPassword.getText().toString().equals("")) {
+
+                FancyToast.makeText(LoginActivity.this,"Email And Password are Required", FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
+
+            }
+            else{
+
+                final ProgressDialog progressDialog=new ProgressDialog(LoginActivity.this);
+                progressDialog.setMessage("Loging In");
+
+                ParseUser.logInInBackground(edtEmail.getText().toString(), edtPassword.getText().toString(), new LogInCallback() {
+
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+
+                        if (user != null && e == null) {
+
+                            FancyToast.makeText(LoginActivity.this, user.getUsername() + " is Signed Up Successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                            edtEmail.setText("");
+                            edtPassword.setText("");
+                            progressDialog.dismiss();
+                            transtiontoSocialMediaActivity();
+
+                        } else {
+
+                            FancyToast.makeText(LoginActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.WARNING, true).show();
+                            progressDialog.dismiss();
+                        }
+
+                    }
+                });
+
+            }
+
+        }
+
+    }
+    private void transtiontoSocialMediaActivity(){
+
+        Intent a=new Intent(LoginActivity.this,SocialMediaActivity.class);
+        startActivity(a);
+
+    }
 }
