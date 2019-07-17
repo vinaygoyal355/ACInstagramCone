@@ -91,5 +91,25 @@
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/btnSignUp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="100sp"
+        android:layout_height="27sp"
+        android:layout_marginStart="295dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="8dp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="Sign Up"
+        android:textColor="@color/blue"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCancel"
+        app:layout_constraintVertical_bias="0.762" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ import static java.lang.System.exit;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnLogin,btnCancel;
+    private Button btnLogin,btnCancel,btnSignUp;
     private EditText edtEmail,edtPassword;
 
     @Override
@@ -29,6 +29,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         setTitle("Log In");
+
+        btnSignUp=findViewById(R.id.btnSignUp);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent A=new Intent(LoginActivity.this,SignUp.class);
+                startActivity(A);
+                finish();
+            }
+        });
 
         edtEmail=findViewById(R.id.edtLoginEmail);
         edtPassword=findViewById(R.id.edtLoginPassword);
@@ -122,6 +132,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Intent a=new Intent(LoginActivity.this,SocialMediaActivity.class);
         startActivity(a);
-
+        finish();
     }
 }

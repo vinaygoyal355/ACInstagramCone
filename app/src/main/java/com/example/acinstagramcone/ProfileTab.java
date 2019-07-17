@@ -58,7 +58,7 @@ public class ProfileTab extends Fragment {
         else{
             edtBio.setText(appUser.get("profileBio").toString());
         }
-        if(appUser.get("profileProfesion")==null){
+        if(appUser.get("profileProfession")==null){
             edtProfession.setText("");
         }
         else{
